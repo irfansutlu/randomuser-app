@@ -3,9 +3,9 @@
 ## Project Skeleton
 
 ```
-004 - Random User App 2 (folder)
+Random User App  (folder)
 |
-|----readme.md         # Given to the students (Definition of the project)
+|----readme.md      
 SOLUTION
 ├── public
 │     └── index.html
@@ -20,7 +20,6 @@ SOLUTION
 └── yarn.lock
 ```
 
-## Expected Outcome
 
 ![Project 004 Snapshot](random-user-app.gif)
 
