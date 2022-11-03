@@ -14,7 +14,8 @@ const url = "https://randomuser.me/api/";
 function App() {
   const [user, setUser] = useState({});
   const [listData, setListdata] = useState([]);
-  const [targeting, setTargeting] = useState("");
+  const [changedText, setChangedText] = useState("");
+  const [changedValue, setChangedValue] = useState("");
 
   const getUser = async () => {
     const { data } = await axios(url);
@@ -33,18 +34,42 @@ function App() {
     return user?.gender === "female" ? womanAgeSvg : manAgeSvg;
   };
 
-  const getInfo = (targeting) => {
-    if (targeting === "name") {
-      return `${user?.name?.first}`;
-    } else {
-      return "alo";
-    }
-  };
-
   useEffect(() => {
     getUser();
   }, []);
-  console.log(targeting);
+
+  const { name, email, dob, location, cell, login } = user;
+
+  const showName = (e) => {
+    const { first, last } = name;
+    setChangedText(e.target.value);
+    setChangedValue(first + " " + last);
+  };
+  const showEmail = (e) => {
+    setChangedText(e.target.name);
+    setChangedValue(email);
+  };
+  const showStreet = (e) => {
+    const {
+      street: { number, name },
+    } = location;
+    setChangedText(e.target.name);
+    setChangedValue(number + " " + name);
+  };
+  const showAge = (e) => {
+    const { age } = dob;
+    setChangedText(e.target.name);
+    setChangedValue(age);
+  };
+  const showPhone = (e) => {
+    setChangedText(e.target.name);
+    setChangedValue(cell);
+  };
+  const showPassword = (e) => {
+    const { password } = login;
+    setChangedText(e.target.name);
+    setChangedValue(password);
+  };
 
   return (
     <main>
@@ -56,29 +81,62 @@ function App() {
             alt="random user"
             className="user-img"
           />
-          <p className="user-title">{`My ${targeting}  is`}</p>
-          <p className="user-value">{getInfo()}</p>
-          <div
-            className="values-list"
-            onMouseOver={(e) => setTargeting(e.target.value)}
-          >
-            <button className="icon" value="name">
-              <img src={photo()} alt="user" id="iconImg" />
+          <p className="user-title">My {changedText} is</p>
+          <p className="user-value">{changedValue}</p>
+          <div className="values-list">
+            <button className="icon" data-label="name">
+              <img
+                src={user?.gender === "female" ? womanSvg : manSvg}
+                alt="user"
+                id="iconImg"
+                name="name"
+                onMouseOver={showName}
+              />
             </button>
-            <button className="icon" value="email">
-              <img src={mailSvg} alt="mail" id="iconImg" />
+            <button className="icon" data-label="email">
+              <img
+                src={mailSvg}
+                alt="mail"
+                id="iconImg"
+                name="email"
+                onMouseOver={showEmail}
+              />
             </button>
-            <button className="icon" value="age">
-              <img src={photoAge()} alt="age" id="iconImg" />
+            <button className="icon" data-label="age">
+              <img
+                src={user?.gender === "female" ? womanAgeSvg : manAgeSvg}
+                alt="age"
+                id="iconImg"
+                name="age"
+                onMouseOver={showAge}
+              />
             </button>
-            <button className="icon" value="street">
-              <img src={mapSvg} alt="map" id="iconImg" />
+            <button className="icon" data-label="street">
+              <img
+                src={mapSvg}
+                alt="map"
+                id="iconImg"
+                name="street"
+                onMouseOver={showStreet}
+              />
             </button>
-            <button className="icon" value="phone">
-              <img src={phoneSvg} alt="phone" id="iconImg" />
+            <button className="icon" data-label="phone">
+              <img
+                src={phoneSvg}
+                alt="phone"
+                id="iconImg"
+                name="phone"
+                onMouseOver={showPhone}
+              />
             </button>
-            <button className="icon" value="password">
-              <img src={padlockSvg} alt="lock" id="iconImg" />
+            <button className="icon" data-label="password">
+              <img
+                src={padlockSvg}
+                alt="lock"
+                id="iconImg"
+                name="password"
+                onMouseOver={showPassword}
+              />
             </button>
           </div>
           <div className="btn-group">
