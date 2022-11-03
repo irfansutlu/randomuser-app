@@ -27,12 +27,6 @@ function App() {
     setListdata([...listData, { user }]);
   };
 
-  const photo = () => {
-    return user?.gender === "female" ? womanSvg : manSvg;
-  };
-  const photoAge = () => {
-    return user?.gender === "female" ? womanAgeSvg : manAgeSvg;
-  };
 
   useEffect(() => {
     getUser();
